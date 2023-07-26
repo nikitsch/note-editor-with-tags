@@ -1,6 +1,6 @@
 import './App.css';
-import { TaskList } from './store/components/ListTasks/ListTasks';
-import { NewTask } from './store/components/NewTask/NewTask';
+import { TaskList } from './components/ListTasks/ListTasks';
+import { NewTask } from './components/NewTask/NewTask';
 
 function App() {
   return (

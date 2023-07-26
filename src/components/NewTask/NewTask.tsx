@@ -1,6 +1,6 @@
 import { ChangeEvent, useState } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks/hook';
-import { addTask } from '../../../store/taskSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/hook';
+import { addTask } from '../../store/taskSlice';
 
 
 export const NewTask: React.FC = () => {
