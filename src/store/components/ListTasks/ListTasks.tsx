@@ -1,4 +1,6 @@
 import { useAppSelector } from "../../hooks/hook";
+import { TaskItem } from "./TaskItem/TaskItem";
+
 
 export const TaskList: React.FC = () => {
 
