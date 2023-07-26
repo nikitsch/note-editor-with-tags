@@ -25,28 +25,36 @@ const taskSlice = createSlice({
       state.list.push({
         id: v1(),
         title: action.payload,
-        hashtag: action.payload.split(' ').filter(el => el[0] === "#"),
+        hashtag: action.payload.split(' ').filter((word: string) => word[0] === "#"),
         completed: false,
         isChange: false
       })
     },
 
     removeTask(state, action: PayloadAction<string>) {
-      state.list = state.list.filter(todo => todo.id !== action.payload);
+      state.list = state.list.filter(task => task.id !== action.payload);
     },
 
     changeTask(state, action: PayloadAction<any>) {
-
+      const textChange = state.list.find(task => task.id === action.payload.id);
+      if (textChange) {
+        textChange.title = action.payload.text
+        textChange.hashtag = action.payload.text.split(' ').filter((word: string) => word[0] === "#")
+        textChange.isChange = false
+      }
     },
 
     toggleIsChange(state, action: PayloadAction<string>) {
-
+      const toggleIsChangeTask = state.list.find(task => task.id === action.payload);
+      if (toggleIsChangeTask) {
+        toggleIsChangeTask.isChange = true
+      }
     },
 
     toggleComplete(state, action: PayloadAction<string>) {
-      const toggledTodo = state.list.find(todo => todo.id === action.payload);
-      if (toggledTodo) {
-        toggledTodo.completed = !toggledTodo.completed;
+      const toggleCompleteTask = state.list.find(task => task.id === action.payload);
+      if (toggleCompleteTask) {
+        toggleCompleteTask.completed = !toggleCompleteTask.completed;
       }
     }
   }
