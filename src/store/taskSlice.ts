@@ -32,13 +32,13 @@ const taskSlice = createSlice({
     },
 
     removeTask(state, action: PayloadAction<string>) {
-
+      state.list = state.list.filter(todo => todo.id !== action.payload);
     },
 
     changeTask(state, action: PayloadAction<any>) {
 
     },
-    
+
     toggleIsChange(state, action: PayloadAction<string>) {
 
     },
