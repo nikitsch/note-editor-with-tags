@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { WritableDraft } from 'immer/dist/internal';
 import { v1 } from 'uuid';
 
 type Todo = {
@@ -13,8 +14,13 @@ type TodosState = {
   list: Todo[];
 }
 
+const TASK_LIST_KEY = "tlk"
+const localStorageDB = (db: WritableDraft<Todo>[]) => {
+  localStorage.setItem(TASK_LIST_KEY, JSON.stringify(db))
+}
+
 const initialState: TodosState = {
-  list: []
+  list: JSON.parse(localStorage.getItem(TASK_LIST_KEY) ?? "[]")
 }
 
 const taskSlice = createSlice({
@@ -29,10 +35,14 @@ const taskSlice = createSlice({
         completed: false,
         isChange: false
       })
+
+      localStorageDB(state.list)
     },
 
     removeTask(state, action: PayloadAction<string>) {
       state.list = state.list.filter(task => task.id !== action.payload);
+
+      localStorageDB(state.list)
     },
 
     changeTask(state, action: PayloadAction<any>) {
@@ -42,6 +52,8 @@ const taskSlice = createSlice({
         textChange.hashtag = action.payload.text.split(' ').filter((word: string) => word[0] === "#")
         textChange.isChange = false
       }
+
+      localStorageDB(state.list)
     },
 
     toggleIsChange(state, action: PayloadAction<string>) {
@@ -49,6 +61,8 @@ const taskSlice = createSlice({
       if (toggleIsChangeTask) {
         toggleIsChangeTask.isChange = true
       }
+
+      localStorageDB(state.list)
     },
 
     toggleComplete(state, action: PayloadAction<string>) {
@@ -56,6 +70,8 @@ const taskSlice = createSlice({
       if (toggleCompleteTask) {
         toggleCompleteTask.completed = !toggleCompleteTask.completed;
       }
+
+      localStorageDB(state.list)
     }
   }
 })
