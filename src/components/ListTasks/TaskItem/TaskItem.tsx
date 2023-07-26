@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useAppDispatch } from "../../../store/hooks/hook";
-import { removeTask } from "../../../store/taskSlice";
+import { removeTask, toggleComplete } from "../../../store/taskSlice";
 
 interface TaskItemProps {
   id: string,
@@ -22,6 +22,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ id, title, hashtag, complete
         <input
           type='checkbox'
           checked={completed}
+          onChange={() => dispatch(toggleComplete(id))}
         />
         <h3>{text}</h3>
         <button onClick={() => dispatch(removeTask(id))}>DELETE</button>
