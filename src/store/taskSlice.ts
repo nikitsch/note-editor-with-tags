@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { v1 } from 'uuid';
 
 type Todo = {
   id: string;
@@ -21,7 +22,13 @@ const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask(state, action: PayloadAction<string>) {
-
+      state.list.push({
+        id: v1(),
+        title: action.payload,
+        hashtag: action.payload.split(' ').filter(el => el[0] === "#"),
+        completed: false,
+        isChange: false
+      })
     },
 
     removeTask(state, action: PayloadAction<string>) {

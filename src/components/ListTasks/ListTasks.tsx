@@ -1,4 +1,4 @@
-import { useAppSelector } from "../../hooks/hook";
+import { useAppSelector } from "../../store/hooks/hook";
 import { TaskItem } from "./TaskItem/TaskItem";
 
 
